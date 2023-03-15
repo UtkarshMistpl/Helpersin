@@ -8,12 +8,13 @@ const containerStyle = {
 	width: "100vw",
 	minHeight: "100vh",
 };
+const libraries = ["places", "marker"];
 
 function MapComponent({ center, workers }) {
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
-		libraries: ["places", "marker"],
+		libraries,
 	});
 
 	const navigate = useNavigate();

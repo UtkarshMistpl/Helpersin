@@ -15,7 +15,8 @@ export const useLogin = () => {
 
 		if (!(response.status == "success")) {
 			setIsLoading(false);
-			setError(response.error);
+			setError(response.message);
+			console.log("error", response.message);
 		}
 
 		if (response.status == "success") {

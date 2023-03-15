@@ -85,7 +85,7 @@ const Home = () => {
 					sx={
 						windowSize[0] > 660
 							? { position: "absolute", top: "0%", zIndex: -1 }
-							: { position: "absolute", top: "400px", zIndex: -1 }
+							: { position: "absolute", top: "450px", zIndex: -1 }
 					}
 				>
 					{workers ? <MapComponent center={center} workers={workers} /> : null}
@@ -114,7 +114,7 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "200px" : "340px",
+						top: windowSize[0] > 660 ? "200px" : "400px",
 						right: windowSize[0] > 660 ? "100px" : "50px",
 						zIndex: 1000,
 					}}

@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import { Input } from "antd";
+import { Alert, Input } from "antd";
 import { useLogin } from "../../hooks/useLogin";
 
 const style = {
@@ -11,7 +11,8 @@ const style = {
 	top: "50%",
 	left: "50%",
 	transform: "translate(-50%, -50%)",
-	width: 400,
+	maxwidth: 400,
+	minWidth: 240,
 	bgcolor: "background.paper",
 	border: "2px solid #000",
 	boxShadow: 24,
@@ -35,14 +36,18 @@ export default function BasicModal() {
 		email: "@gmail.com",
 		password: "password",
 	});
-	const { login } = useLogin();
+	const { login, isLoading, error } = useLogin();
 	const handleOpen = () => setOpen(true);
 	const handleClose = () => setOpen(false);
 	const handleLogin = () => {
 		login(user.email, user.password);
 	};
-	const handleChange = () => {};
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
+	};
 
+	console.log("current error", error);
 	return (
 		<div>
 			<Button sx={buttonStyles} variant="contained" onClick={handleOpen}>
@@ -62,15 +67,26 @@ export default function BasicModal() {
 						<Input
 							style={{ marginBottom: "1rem" }}
 							value={user.email}
-							onChange={hadleChange}
+							name="email"
+							onChange={handleChange}
 							placeholder="Email Id"
 						/>
 						<Input
 							placeholder="Password"
 							value={user.password}
+							name="password"
 							style={{ marginBottom: "1rem" }}
-							onChange={hadleChange}
+							onChange={handleChange}
 						/>
+						{error ? (
+							<Alert
+								type="error"
+								message={error}
+								style={{ marginBottom: "1rem" }}
+							>
+								Invalid Credentials
+							</Alert>
+						) : null}
 						<Button variant="contained" sx={buttonStyles} onClick={handleLogin}>
 							Submit
 						</Button>

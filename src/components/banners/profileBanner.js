@@ -21,7 +21,7 @@ const ProfileBanner = ({ windowSize }) => {
 					sx={{
 						position: "absolute",
 						top: "30%",
-						left: windowSize[0] > 600 ? "42%" : "28%",
+						left: windowSize[0] > 600 ? "42%" : "25%",
 						height: 100,
 						width: 100,
 						marginRight: 2,
