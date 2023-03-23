@@ -27,9 +27,9 @@ const Navbar = () => {
 	const { logout } = useLogout();
 	const [currentTab, setCurrentTab] = useState(0);
 	const navigate = useNavigate();
-	const handleChange = (e, value) => {
-		console.log(value);
-		navigate(routes[e.key]);
+	const handleChange = (i) => {
+		// console.log(e.target);
+		navigate(routes[i]);
 	};
 	return (
 		<>
@@ -42,16 +42,24 @@ const Navbar = () => {
 							width: 50,
 							marginRight: 2,
 						}}
-						alt="helpersin"
+						alt="helpersIn"
 						src={icon}
 					/>
 					<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-						Helpersin
+						HelpersIn
 					</Typography>
 					<Box sx={{ display: { xs: "none", sm: "block" } }}>
 						{Pages.map((row, i) => {
 							if (!(row == "Workers" || row == "Add Category") || user)
-								return <Tab key={i} label={row} onClick={handleChange} />;
+								return (
+									<Tab
+										key={i}
+										label={row}
+										onClick={() => {
+											handleChange(i);
+										}}
+									/>
+								);
 						})}
 					</Box>
 					<Box sx={{ display: { xs: "none", sm: "block" } }}>

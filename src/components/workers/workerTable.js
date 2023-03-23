@@ -24,7 +24,8 @@ const WorkersTable = ({
 }) => {
 	const columns = [
 		{ field: "id", headerName: "ID", width: 70 },
-		{ field: "name", headerName: "Name", width: 130 },
+		{ field: "firstname", headerName: "First Name", width: 130 },
+		{ field: "lastname", headerName: "Last Name", width: 130 },
 		{ field: "category", headerName: "Category", width: 130 },
 		{
 			field: "mobile",
@@ -53,6 +54,7 @@ const WorkersTable = ({
 							onClick={(e) => {
 								e.stopPropagation();
 								console.log(value);
+								setCurrentRow(value.row);
 								setEditModal(true);
 								// setOpen(true);
 								// setName(cellValue.row.firstName);
@@ -68,7 +70,7 @@ const WorkersTable = ({
 							onClick={(e) => {
 								e.stopPropagation();
 								console.log(value);
-								setCurrentRow(value.row.rowId);
+								setCurrentRow(value.row);
 								setAlertModal(true);
 
 								console.log("run");
@@ -99,11 +101,15 @@ const WorkersTable = ({
 			const temp_rows = fetchWorkers.map((result, i) => {
 				return {
 					id: i + 1,
-					name: result.name + " " + result.last_name,
+					firstname: result.name,
+					lastname: result.last_name,
 					category: result.category,
 					mobile: result.mobile,
 					details: result.detail,
 					rowId: result.id,
+					email: result.email,
+					country: result.country,
+					locality: result.locality,
 				};
 			});
 			serWorkerRows(temp_rows);

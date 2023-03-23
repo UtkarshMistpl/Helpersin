@@ -13,6 +13,7 @@ import usePlacesAutocomplete, {
 	getGeocode,
 	getLatLng,
 } from "use-places-autocomplete";
+import { Box } from "@mui/material";
 
 const SearchBar = ({ setCenter }) => {
 	// const { ref, autocompleteRef } = usePlacesWidget({
@@ -35,7 +36,7 @@ const SearchBar = ({ setCenter }) => {
 	// console.log(autocompleteRef);
 
 	return (
-		<form style={{ marginTop: "1rem", boxShadow: 15 }}>
+		<Box sx={{ marginTop: "1rem", marginRight: { sm: "1rem" } }}>
 			<Autocomplete
 				apiKey={process.env.REACT_APP_GOOGLEMAPS_KEY}
 				onPlaceSelected={onPlaceSelected}
@@ -44,7 +45,7 @@ const SearchBar = ({ setCenter }) => {
 			{/* <IconButton type="button" aria-label="search">
 				<SearchIcon style={{ fill: "blue" }} />
 			</IconButton> */}
-		</form>
+		</Box>
 	);
 };
 

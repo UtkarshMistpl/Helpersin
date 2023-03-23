@@ -1,6 +1,7 @@
 import { useState } from "react";
 import AlertModel from "../../components/modles/alertModel";
 import EditModal from "../../components/modles/editModel";
+import AntdTable from "../../components/tables/antdTable";
 import WorkersTable from "../../components/workers/workerTable";
 import { deleteWorker } from "../../services/workersServices/workers";
 
@@ -12,7 +13,7 @@ const WorkerList = () => {
 	const deleteTheWorker = async () => {
 		console.log("delete func", currentRow);
 
-		let result = await deleteWorker(currentRow);
+		let result = await deleteWorker(currentRow.id);
 		if (result) {
 			console.log(result);
 		}
@@ -20,11 +21,17 @@ const WorkerList = () => {
 
 	return (
 		<>
-			<WorkersTable
+			{/* <WorkersTable
 				alertModal={alertModal}
 				setAlertModal={setAlertModal}
 				setCurrentRow={setCurrentRow}
 				editModal={editModal}
+				setEditModal={setEditModal}
+			/> */}
+			<AntdTable
+				alertModal={alertModal}
+				setAlertModal={setAlertModal}
+				setCurrentRow={setCurrentRow}
 				setEditModal={setEditModal}
 			/>
 			<AlertModel
@@ -32,7 +39,11 @@ const WorkerList = () => {
 				setAlertModal={setAlertModal}
 				okFunc={deleteTheWorker}
 			/>
-			<EditModal editModal={editModal} setEditModal={setEditModal} />
+			<EditModal
+				editModal={editModal}
+				setEditModal={setEditModal}
+				currentRow={currentRow}
+			/>
 		</>
 	);
 };

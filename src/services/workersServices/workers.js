@@ -63,7 +63,7 @@ export const fetchWorker = async (id) => {
 	console.log("list of workers", json.workers);
 };
 
-export const fetchAllWorkers = async (page) => {
+export const fetchAllWorkers = async (page, rows) => {
 	if (!page) {
 		return;
 	}
@@ -73,6 +73,7 @@ export const fetchAllWorkers = async (page) => {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
 			page: page,
+			rows: rows,
 		}),
 	});
 	const json = await response.json();
@@ -118,6 +119,52 @@ export const deleteWorker = async (id) => {
 	const json = await response.json();
 	if (!response) {
 		return 0;
+	}
+	return json;
+};
+
+//SAVE WORKER DATA
+
+export const saveWorkerData = async (formData) => {
+	if (!formData) {
+		return;
+	}
+	// console.log("servece", photo);
+	const response = await fetch(`${PORT}/workers/save`, {
+		method: "POST",
+		body: formData,
+	});
+	const json = await response.json();
+
+	if (!response) {
+		return;
+	}
+	return json;
+};
+
+//EDIT WORKER DATA
+export const editWorkerData = async (user) => {
+	if (!user) {
+		return;
+	}
+	const response = await fetch(`${PORT}/workers/edit`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			name: user.firstName,
+			last_name: user.lastName,
+			category: user.category,
+			mobile: user.phone,
+			detail: user.details,
+			locality: user.locality,
+			id: user.id,
+		}),
+	});
+	const json = await response.json();
+
+	console.log("jsone date from edited worker", json);
+	if (!response) {
+		return;
 	}
 	return json;
 };

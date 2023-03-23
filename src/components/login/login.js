@@ -33,8 +33,8 @@ const buttonStyles = {
 export default function BasicModal() {
 	const [open, setOpen] = React.useState(false);
 	const [user, setUser] = React.useState({
-		email: "@gmail.com",
-		password: "password",
+		email: "info@mistpl.com",
+		password: "Q!W@e3r4t5",
 	});
 	const { login, isLoading, error } = useLogin();
 	const handleOpen = () => setOpen(true);

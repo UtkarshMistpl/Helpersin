@@ -1,9 +1,11 @@
 import { Grid } from "@mui/material";
+import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import ValidationForm from "../../components/forms/amirForm";
 import FormDisabledDemo from "../../components/forms/workerForm";
 import { getCountries } from "../../services/user/userServices";
 import { fetchDataCategories } from "../../services/workersServices/workers";
+import icon from "../../assets/images/worker-1.png";
 
 const AddWorker = () => {
 	const [categories, setCategories] = useState([]);
@@ -43,13 +45,24 @@ const AddWorker = () => {
 		<>
 			<Grid
 				container
-				spacing={0}
-				direction="column"
+				spacing={2}
 				alignItems="center"
-				justifyContent="center"
 				style={{ minHeight: "100vh", padding: "2rem" }}
 			>
-				<Grid item xs={6}>
+				<Grid item xs={12} sm={6}>
+					<Box
+						component="img"
+						sx={{
+							height: 200,
+							marginBottom: { sm: "5rem" },
+							marginLeft: { sm: "5rem" },
+							display: { xs: "none", sm: "block" },
+						}}
+						alt="helpersin"
+						src={icon}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={4}>
 					{/* <FormDisabledDemo
 						categories={categories && categories}
 						countries={countires}

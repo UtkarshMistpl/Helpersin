@@ -1,30 +1,59 @@
 import { Grid } from "@mui/material";
 import { Box } from "@mui/system";
 import { Button, Input, Modal, Typography } from "antd";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Descriptions } from "antd";
+import { editWorkerData } from "../../services/workersServices/workers";
 
-const EditModal = ({ editModal, setEditModal }) => {
+const EditModal = ({ editModal, setEditModal, currentRow }) => {
 	const [user, setUser] = useState({
-		email: "email",
+		firstName: "",
+		lastName: "",
+		category: "",
+		country: "",
+		locality: "",
+		details: "",
+
+		email: "",
 	});
 	const handleCancel = () => {
 		console.log("closed");
-		console.log(editModal);
+		console.log(currentRow);
 
 		setEditModal(false);
 	};
 
-	const handleOk = () => {
+	const handleOk = async () => {
 		console.log("closed");
 		setEditModal(false);
-		console.log(editModal);
+		let result = await editWorkerData(user);
+		console.log("edit :", result);
+		console.log(currentRow);
 		// okFunc();
 	};
 
-	const handleChange = () => {
-		// console.log(change);
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+		setUser({ ...user, [name]: value });
 	};
 
+	const ParahForedit = (text) => {
+		return <p style={{ margin: "0" }}>{text}</p>;
+	};
+
+	useEffect(() => {
+		currentRow &&
+			setUser({
+				firstName: currentRow.name,
+				lastName: currentRow.last_name,
+				category: currentRow.category,
+				country: currentRow.country,
+				locality: currentRow.locality,
+				details: currentRow.detail,
+				email: currentRow.email,
+				id: currentRow.id,
+			});
+	}, [currentRow]);
 	return (
 		<>
 			<Modal
@@ -38,66 +67,79 @@ const EditModal = ({ editModal, setEditModal }) => {
 					<Box sx={{ padding: 2 }}>
 						<Grid container spacing={2}>
 							<Grid item xs={6}>
+								{ParahForedit("First Person")}
+								<Input
+									style={{ marginBottom: "1rem" }}
+									value={user.firstName}
+									name="firstName"
+									onChange={handleChange}
+									placeholder="First Name"
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								{ParahForedit("Last Name")}
+
+								<Input
+									style={{ marginBottom: "1rem" }}
+									value={user.lastName}
+									name="lastName"
+									onChange={handleChange}
+									placeholder="Last Name"
+								/>
+							</Grid>
+							<Grid item xs={6}>
+								{ParahForedit("Email")}
+
 								<Input
 									style={{ marginBottom: "1rem" }}
 									value={user.email}
-									name="name"
+									name="email"
 									onChange={handleChange}
 									placeholder="Email Id"
 								/>
 							</Grid>
 							<Grid item xs={6}>
+								{ParahForedit("Category")}
+
 								<Input
 									style={{ marginBottom: "1rem" }}
-									value={user.email}
+									value={user.category}
 									name="name"
 									onChange={handleChange}
-									placeholder="Email Id"
+									placeholder="Category"
 								/>
 							</Grid>
 							<Grid item xs={6}>
+								{ParahForedit("Country")}
+
 								<Input
 									style={{ marginBottom: "1rem" }}
-									value={user.email}
-									name="name"
+									value={user.country}
+									name="country"
 									onChange={handleChange}
-									placeholder="Email Id"
+									placeholder="Country"
 								/>
 							</Grid>
 							<Grid item xs={6}>
+								{ParahForedit("Details")}
+
 								<Input
 									style={{ marginBottom: "1rem" }}
-									value={user.email}
+									value={user.details}
 									name="name"
 									onChange={handleChange}
-									placeholder="Email Id"
+									placeholder="Details"
 								/>
 							</Grid>
 							<Grid item xs={6}>
+								{ParahForedit("Locality")}
+
 								<Input
 									style={{ marginBottom: "1rem" }}
-									value={user.email}
-									name="name"
+									value={user.locality}
+									name="locality"
 									onChange={handleChange}
-									placeholder="Email Id"
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Input
-									style={{ marginBottom: "1rem" }}
-									value={user.email}
-									name="name"
-									onChange={handleChange}
-									placeholder="Email Id"
-								/>
-							</Grid>
-							<Grid item xs={6}>
-								<Input
-									style={{ marginBottom: "1rem" }}
-									value={user.email}
-									name="name"
-									onChange={handleChange}
-									placeholder="Email Id"
+									placeholder="Locality"
 								/>
 							</Grid>
 						</Grid>

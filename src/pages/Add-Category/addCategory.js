@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import { Alert, Input } from "antd";
 import { useEffect, useState } from "react";
 import CustomButton from "../../components/button/customButton";
+import CategoryTable from "../../components/tables/categoryTable/categoryTable";
 import {
 	addNewCategory,
 	fetchDataCategories,
@@ -44,7 +45,7 @@ const AddCategory = () => {
 				sx={{
 					display: "flex",
 					flexWrap: "wrap",
-					justifyContent: "center",
+					justifyContent: "start",
 					m: 4,
 				}}
 			>
@@ -66,11 +67,16 @@ const AddCategory = () => {
 				</Box>
 			</Box>
 			<Box
-				sx={{ display: "flex", justifyContent: "center", marginBottom: "2rem" }}
+				sx={{
+					display: "flex",
+					justifyContent: { xs: "center", sm: "start" },
+					marginLeft: { xs: "0", sm: "3rem" },
+					marginBottom: "2rem",
+				}}
 			>
 				{message && <Alert message={message} type={error} closable />}
 			</Box>
-			<Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
+			{/* <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center" }}>
 				{categories.map((row, i) => (
 					<Button
 						variant="outlined"
@@ -80,6 +86,15 @@ const AddCategory = () => {
 						{row.category}
 					</Button>
 				))}
+			</Box> */}
+			<Box
+				sx={{
+					display: "flex",
+					flexWrap: "wrap",
+					justifyContent: "space-around",
+				}}
+			>
+				<CategoryTable />
 			</Box>
 		</>
 	);

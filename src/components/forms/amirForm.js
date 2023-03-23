@@ -3,29 +3,82 @@ import { Form, Button, Checkbox, DatePicker, Input, Select, Space } from "antd";
 import Upload from "antd/es/upload/Upload";
 import { PlusOutlined } from "@ant-design/icons";
 import TextArea from "antd/es/input/TextArea";
+import { saveWorkerData } from "../../services/workersServices/workers";
+import { useState } from "react";
+import SearchBar from "../search/searchBar";
+import AntdSearch from "../search/antdSearch";
 
 const ValidationForm = ({ categories, countries }) => {
+	const [photo, setPhoto] = useState(null);
+	const [center, setCenter] = useState({ lat: "", lng: "" });
+	const [address, setAddress] = useState(null);
+	const handleUpload = ({ fileList }) => {
+		setPhoto(fileList[0]);
+	};
+	const handleSubmit = async (values) => {
+		console.log("photo", photo);
+		console.log("values ", values);
+
+		const formData = new FormData();
+		formData.append("name", values.firstName);
+		formData.append("last_name", values.lastName);
+		formData.append("category", values.firstName);
+		formData.append("mobile", values.mobile);
+		formData.append("detail", values.details);
+		formData.append("locality", address);
+		formData.append("lat", center.lat);
+		formData.append("lng", center.lng);
+		formData.append("country", values.country);
+		photo && formData.append("profile_pic", values.profile_pic.file);
+		let result = await saveWorkerData(formData);
+		console.log("new worker ", result);
+	};
 	return (
 		<Form
 			autoComplete="off"
 			labelCol={{ span: 10 }}
 			wrapperCol={{ span: 14 }}
-			onFinish={(values) => {
-				console.log({ values });
-			}}
+			onFinish={handleSubmit}
 			onFinishFailed={(error) => {
 				console.log({ error });
 			}}
 		>
-			<Upload action="/upload.do" listType="picture-card">
-				<div>
-					<PlusOutlined />
-					<div style={{ marginTop: 8 }}>Photo</div>
-				</div>
-			</Upload>
+			<Form.Item name="profile_pic" label="Profile">
+				<Upload
+					accept=".png,.jpg,.jpeg"
+					listType="picture-card"
+					valuePropName="fileList"
+					getValueFromEvent={(event) => {
+						return event?.fileList;
+					}}
+					beforeUpload={() => false}
+					onChange={handleUpload}
+				>
+					<div>
+						<PlusOutlined />
+						<div style={{ marginTop: 8 }}>Photo</div>
+					</div>
+				</Upload>
+			</Form.Item>
+
 			<Form.Item
-				name="fullName"
-				label="Full Name"
+				name="firstName"
+				label="First Name"
+				rules={[
+					{
+						required: true,
+						message: "Please enter your name",
+					},
+					{ whitespace: true },
+					{ min: 3 },
+				]}
+				hasFeedback
+			>
+				<Input placeholder="Type your name" />
+			</Form.Item>
+			<Form.Item
+				name="lastName"
+				label="Last Name"
 				rules={[
 					{
 						required: true,
@@ -40,20 +93,30 @@ const ValidationForm = ({ categories, countries }) => {
 			</Form.Item>
 
 			<Form.Item
-				name="email"
-				label="Email"
+				name="mobile"
+				label="Contact No."
 				rules={[
 					{
 						required: true,
-						message: "Please enter your email",
+						message: "Please enter your name",
 					},
-					{ type: "email", message: "Please enter a valid email" },
+					{ whitespace: true },
+					{ min: 10 },
+					{ max: 10 },
+					{
+						validator: (_, value) => {
+							if (/^[0-9]+$/.test(value)) {
+								return Promise.resolve();
+							} else {
+								return Promise.reject("Some message here");
+							}
+						},
+					},
 				]}
 				hasFeedback
 			>
-				<Input placeholder="Type your email" />
+				<Input placeholder="Type your name" />
 			</Form.Item>
-
 			<Form.Item name="category" label="Category" requiredMark="optional">
 				<Select placeholder="Select A Category">
 					{categories.map((value, i) => {
@@ -78,19 +141,13 @@ const ValidationForm = ({ categories, countries }) => {
 				</Select>
 			</Form.Item>
 
-			<Form.Item
-				name="locality"
-				label="Locality"
-				rules={[
-					{
-						required: true,
-						message: "Please Provide Locality",
-					},
-					{ type: "text", message: "Please enter a valid locality" },
-				]}
-				hasFeedback
-			>
-				<Input placeholder="Locality" />
+			<Form.Item name="locality" label="Locality">
+				{/* <Input placeholder="Locality" /> */}
+				<AntdSearch
+					setCenter={setCenter}
+					setAddress={setAddress}
+					address={address}
+				/>
 			</Form.Item>
 			<Form.Item
 				name="details"

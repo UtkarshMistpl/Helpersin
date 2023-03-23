@@ -57,7 +57,7 @@ const DrawerComp = ({ user }) => {
 						}}
 					>
 						<ListItemIcon>
-							<ListItemText>Helpersin</ListItemText>
+							<ListItemText>HelpersIn</ListItemText>
 						</ListItemIcon>
 					</ListItemButton>
 					<Divider variant="middle" light={false} />

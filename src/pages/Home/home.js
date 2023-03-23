@@ -84,22 +84,17 @@ const Home = () => {
 				<Box
 					sx={
 						windowSize[0] > 660
-							? { position: "absolute", top: "0%", zIndex: -1 }
-							: { position: "absolute", top: "450px", zIndex: -1 }
+							? { position: "absolute", top: "0%" }
+							: { position: "absolute", top: "450px" }
 					}
 				>
 					{workers ? <MapComponent center={center} workers={workers} /> : null}
 				</Box>
 				<Box
 					sx={{
-						width: "100%",
 						position: "absolute",
-						top: windowSize[0] > 660 ? "80px" : "10px",
+						top: windowSize[0] > 660 ? "10px" : "10px",
 						left: "0%",
-						zIndex: 900,
-						display: "flex",
-						flexWrap: "wrap",
-						justifyContent: "space-around",
 					}}
 				>
 					<CustomCarousel
@@ -109,12 +104,21 @@ const Home = () => {
 					/>
 
 					{/* <PlaceSearch /> */}
-					<SearchBar setCenter={setCenter} />
 				</Box>
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "200px" : "400px",
+						top: windowSize[0] > 660 ? "10px" : "10px",
+						right: "0%",
+					}}
+				>
+					<SearchBar setCenter={setCenter} />
+				</Box>
+
+				<Box
+					sx={{
+						position: "absolute",
+						top: windowSize[0] > 660 ? "200px" : "460px",
 						right: windowSize[0] > 660 ? "100px" : "50px",
 						zIndex: 1000,
 					}}
