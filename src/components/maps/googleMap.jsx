@@ -14,7 +14,7 @@ const libraries = ["places", "marker"];
 function MapComponent({ center, workers, children }) {
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
-		googleMapsApiKey: process.env.REACT_APP_GOOGLEMAPS_KEY,
+		googleMapsApiKey: String(process.env.REACT_APP_GOOGLEMAPS_KEY),
 		libraries,
 	});
 

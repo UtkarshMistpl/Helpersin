@@ -12,7 +12,7 @@ import { Button } from "@mui/material";
 import { COLOR_BORDER_BLUE } from "../../constant/constant";
 const CustomCarousel = ({ categories, setCurretCategory, curretCategory }) => {
 	const caurselStyle = {
-		width: "15vw",
+		width: "100px",
 	};
 
 	return (
@@ -32,7 +32,7 @@ const CustomCarousel = ({ categories, setCurretCategory, curretCategory }) => {
 				{"Categories"}
 			</Button>
 			<CarouselProvider
-				orientation="vertical"
+				orientation="horizontal"
 				naturalSlideWidth={100}
 				naturalSlideHeight={30}
 				visibleSlides={6}

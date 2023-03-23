@@ -108,8 +108,8 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "10px" : "10px",
-						right: "0%",
+						top: windowSize[0] > 660 ? "10px" : "200px",
+						right: windowSize[0] > 660 ? "0%" : "20%",
 					}}
 				>
 					<SearchBar setCenter={setCenter} />

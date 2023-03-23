@@ -38,7 +38,7 @@ const SearchBar = ({ setCenter }) => {
 	return (
 		<Box sx={{ marginTop: "1rem", marginRight: { sm: "1rem" } }}>
 			<Autocomplete
-				apiKey={process.env.REACT_APP_GOOGLEMAPS_KEY}
+				apiKey={String(process.env.REACT_APP_GOOGLEMAPS_KEY)}
 				onPlaceSelected={onPlaceSelected}
 				style={{ padding: "0.75rem", width: "230px" }}
 			/>
