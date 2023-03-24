@@ -5,19 +5,19 @@ import { MarkerF } from "@react-google-maps/api";
 import { useCurrentLocation } from "../../hooks/useLocation";
 import { useNavigate } from "react-router-dom";
 import AntdSearch from "../search/antdSearch";
-const containerStyle = {
-	width: "100vw",
-	minHeight: "100vh",
-};
+
 const libraries = ["places", "marker"];
 
-function MapComponent({ center, workers, children }) {
+function MapComponent({ center, workers, windowSize, children }) {
 	const { isLoaded } = useJsApiLoader({
 		id: "google-map-script",
 		googleMapsApiKey: String(process.env.REACT_APP_GOOGLEMAPS_KEY),
 		libraries,
 	});
-
+	const containerStyle = {
+		width: windowSize > 660 ? "50vw" : "93vw",
+		height: windowSize > 660 ? "85vh" : "100vh",
+	};
 	const navigate = useNavigate();
 
 	const [place, setPlace] = useState(null);

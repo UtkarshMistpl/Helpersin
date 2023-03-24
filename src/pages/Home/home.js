@@ -79,21 +79,40 @@ const Home = () => {
 				sx={{
 					paddingTop: "3.5rem",
 					position: "relative",
+					width: "100%",
 				}}
 			>
 				<Box
 					sx={
 						windowSize[0] > 660
-							? { position: "absolute", top: "0%" }
-							: { position: "absolute", top: "450px" }
+							? {
+									position: "absolute",
+									top: "30px",
+									display: "flex",
+									justifyContent: "center",
+									width: "100%",
+							  }
+							: {
+									position: "absolute",
+									top: "450px",
+									display: "flex",
+									justifyContent: "center",
+									width: "100%",
+							  }
 					}
 				>
-					{workers ? <MapComponent center={center} workers={workers} /> : null}
+					{workers ? (
+						<MapComponent
+							center={center}
+							workers={workers}
+							windowSize={windowSize[0]}
+						/>
+					) : null}
 				</Box>
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "10px" : "10px",
+						top: windowSize[0] > 660 ? "25px" : "10px",
 						left: "0%",
 					}}
 				>
@@ -101,6 +120,7 @@ const Home = () => {
 						categories={categories}
 						setCurretCategory={setCurretCategory}
 						curretCategory={curretCategory}
+						windowSize={windowSize[0]}
 					/>
 
 					{/* <PlaceSearch /> */}
@@ -108,8 +128,8 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "10px" : "320px",
-						right: windowSize[0] > 660 ? "0%" : "20%",
+						top: windowSize[0] > 660 ? "15px" : "260px",
+						right: windowSize[0] > 660 ? "0%" : "60px",
 					}}
 				>
 					<SearchBar setCenter={setCenter} />
@@ -118,9 +138,11 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "200px" : "460px",
+						top: windowSize[0] > 660 ? "200px" : "380px",
 						right: windowSize[0] > 660 ? "100px" : "50px",
 						zIndex: 1000,
+						display: "flex",
+						justifyContent: "center",
 					}}
 				>
 					<VerticalSlider windowSize={windowSize} setDistance={setDistance} />

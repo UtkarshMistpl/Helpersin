@@ -10,9 +10,14 @@ import "pure-react-carousel/dist/react-carousel.es.css";
 import Categories from "../category/categories";
 import { Button } from "@mui/material";
 import { COLOR_BORDER_BLUE } from "../../constant/constant";
-const CustomCarousel = ({ categories, setCurretCategory, curretCategory }) => {
+const CustomCarousel = ({
+	categories,
+	setCurretCategory,
+	curretCategory,
+	windowSize,
+}) => {
 	const caurselStyle = {
-		width: "300px",
+		width: windowSize > 660 ? "300px" : "360px",
 	};
 
 	return (
@@ -32,12 +37,12 @@ const CustomCarousel = ({ categories, setCurretCategory, curretCategory }) => {
 				{"Categories"}
 			</Button>
 			<CarouselProvider
-				orientation="horizontal"
-				naturalSlideWidth={100}
-				naturalSlideHeight={40}
-				visibleSlides={2}
+				orientation={windowSize > 660 ? "vertical" : "horizontal"}
+				naturalSlideWidth={windowSize > 660 ? 100 : 100}
+				naturalSlideHeight={windowSize > 660 ? 20 : 60}
+				visibleSlides={windowSize > 660 ? 6 : 2}
 				isIntrinsicHeight={false}
-				totalSlides={categories.length / 2}
+				totalSlides={categories.length / 2 + 1}
 				style={caurselStyle}
 			>
 				<Slider>
