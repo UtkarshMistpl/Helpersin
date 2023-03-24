@@ -59,8 +59,8 @@ const CustomCarousel = ({
 					})}
 				</Slider>
 				<div style={{ textAlign: "center", boxShadow: "10" }}>
-					<ButtonBack>Back</ButtonBack>
-					<ButtonNext>Next</ButtonNext>
+					{/* <ButtonBack>Back</ButtonBack>
+					<ButtonNext>Next</ButtonNext> */}
 				</div>
 			</CarouselProvider>
 		</div>

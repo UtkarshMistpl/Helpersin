@@ -10,7 +10,7 @@ import usePlacesAutocomplete, {
 import { Box } from "@mui/material";
 import { Input } from "antd";
 
-const AntdSearch = ({ setCenter, setAddress, address }) => {
+const AntdSearch = ({ setCenter, setAddress, address, customStyle }) => {
 	const [autocomplete, setAutocomplete] = useState(null);
 
 	// const { ref, autocompleteRef } = usePlacesWidget({
@@ -56,7 +56,12 @@ const AntdSearch = ({ setCenter, setAddress, address }) => {
 	return (
 		<Box sx={{ marginRight: { sm: "1rem" } }}>
 			<Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged}>
-				<Input type="text" name="locality" value={address} />
+				<Input
+					type="text"
+					name="locality"
+					value={address}
+					style={customStyle}
+				/>
 			</Autocomplete>
 		</Box>
 	);

@@ -3,9 +3,11 @@ import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import CustomCarousel from "../../components/carousel/customCarousel";
+import Categories from "../../components/category/categories";
 // import { useLocation } from "react-router-dom";
 import MapComponent from "../../components/maps/googleMap";
 import VerticalSlider from "../../components/rangeSlider/rangeSlider";
+import AntdSearch from "../../components/search/antdSearch";
 import PlaceSearch from "../../components/search/PlaceSearch";
 import SearchBar from "../../components/search/searchBar";
 import { useCurrentLocation } from "../../hooks/useLocation";
@@ -87,14 +89,14 @@ const Home = () => {
 						windowSize[0] > 660
 							? {
 									position: "absolute",
-									top: "30px",
+									top: "0",
 									display: "flex",
-									justifyContent: "center",
+									justifyContent: "right",
 									width: "100%",
 							  }
 							: {
 									position: "absolute",
-									top: "450px",
+									top: "600px",
 									display: "flex",
 									justifyContent: "center",
 									width: "100%",
@@ -114,32 +116,54 @@ const Home = () => {
 						position: "absolute",
 						top: windowSize[0] > 660 ? "25px" : "10px",
 						left: "0%",
+						display: "flex",
+						flexWrap: "wrap",
+						flexDirection: windowSize[0] > 660 ? "column" : "row",
+						height: "80vh",
 					}}
 				>
-					<CustomCarousel
+					{categories.map((value, i) => {
+						return (
+							<Categories
+								category={value.category}
+								setCurretCategory={setCurretCategory}
+								curretCategory={curretCategory}
+							/>
+						);
+					})}
+					{/* <CustomCarousel
 						categories={categories}
 						setCurretCategory={setCurretCategory}
 						curretCategory={curretCategory}
 						windowSize={windowSize[0]}
-					/>
+					/> */}
 
 					{/* <PlaceSearch /> */}
 				</Box>
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "15px" : "260px",
-						right: windowSize[0] > 660 ? "0%" : "60px",
+						top: windowSize[0] > 660 ? "15px" : "620px",
+						right: windowSize[0] > 660 ? "600px" : null,
+						left: !(windowSize[0] > 660) ? "40px" : "450px",
+						zIndex: 1000,
 					}}
 				>
-					<SearchBar setCenter={setCenter} />
+					<AntdSearch
+						setCenter={setCenter}
+						customStyle={{
+							padding: "0.8rem",
+							paddingLeft: "2rem",
+							paddingRight: "1rem",
+						}}
+					/>
 				</Box>
 
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "200px" : "380px",
-						right: windowSize[0] > 660 ? "100px" : "50px",
+						top: windowSize[0] > 660 ? "200px" : "680px",
+						right: windowSize[0] > 660 ? "100px" : "30px",
 						zIndex: 1000,
 						display: "flex",
 						justifyContent: "center",

@@ -22,11 +22,15 @@ const Categories = (props) => {
 		maxHeight: "50px",
 		minWidth: "110px",
 		minHeight: "5px",
+		margin: "0.2rem",
+		marginLeft: "1rem",
+		fontSize: "11px",
+		padding: "0.5rem",
+		paddingLeft: "1rem",
+		paddingRight: "1rem",
 		// p: 0.5,
 		backgroundColor: COLOR_WHITE,
-		color: COLOR_BLACK,
-		boxShadow: 20,
-		fontWeight: "Bolder",
+		color: COLOR_BORDER_BLUE,
 		"&:hover": {
 			backgroundColor: COLOR_PRIME_BLUE,
 			color: COLOR_WHITE,
@@ -38,6 +42,7 @@ const Categories = (props) => {
 		minWidth: "110px",
 		minHeight: "5px",
 		m: 1,
+		marginLeft: "1rem",
 		// p: 0.5,
 		backgroundColor: COLOR_PRIME_BLUE,
 		color: COLOR_WHITE,
@@ -58,14 +63,14 @@ const Categories = (props) => {
 				sx={{
 					display: "flex",
 					flexWrap: "wrap",
-					justifyContent: "space-around",
+					justifyContent: "left",
 				}}
 			>
 				{category.toUpperCase() != props.curretCategory.toUpperCase() ? (
 					<Button
 						size="small"
 						sx={categoryBtnSty}
-						variant="contained"
+						variant="outlined"
 						onClick={(e) => {
 							props.setCurretCategory(e.target.innerText);
 							setActive(true);

@@ -15,8 +15,8 @@ function MapComponent({ center, workers, windowSize, children }) {
 		libraries,
 	});
 	const containerStyle = {
-		width: windowSize > 660 ? "50vw" : "93vw",
-		height: windowSize > 660 ? "85vh" : "100vh",
+		width: windowSize > 660 ? "70vw" : "93vw",
+		height: windowSize > 660 ? "90vh" : "100vh",
 	};
 	const navigate = useNavigate();
 
