@@ -149,7 +149,7 @@ const Home = () => {
 						zIndex: 1000,
 					}}
 				>
-					<AntdSearch
+					<SearchBar
 						setCenter={setCenter}
 						customStyle={{
 							padding: "0.8rem",
