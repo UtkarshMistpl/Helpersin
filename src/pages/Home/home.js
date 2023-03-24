@@ -108,7 +108,7 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "10px" : "200px",
+						top: windowSize[0] > 660 ? "10px" : "320px",
 						right: windowSize[0] > 660 ? "0%" : "20%",
 					}}
 				>
