@@ -15,9 +15,11 @@ import {
 	fetchDataCategories,
 	fetchDataWorkers,
 } from "../../services/workersServices/workers";
+import FilterForm from "../../components/forms/filterForm/filterForm";
 const Home = () => {
 	const { status, lat, lng, getLocation } = useCurrentLocation();
-	const [center, setCenter] = useState();
+	const [address, setAddress] = useState(null);
+	const [center, setCenter] = useState(null);
 	const location = useLocation();
 	const [categories, setCategories] = useState([]);
 	const [distance, setDistance] = useState(5);
@@ -114,15 +116,16 @@ const Home = () => {
 				<Box
 					sx={{
 						position: "absolute",
-						top: windowSize[0] > 660 ? "25px" : "10px",
+						top: windowSize[0] > 660 ? "50px" : "10px",
 						left: "0%",
 						display: "flex",
 						flexWrap: "wrap",
 						flexDirection: windowSize[0] > 660 ? "column" : "row",
-						height: "80vh",
+						height: "100vh",
+						paddingLeft: "3rem",
 					}}
 				>
-					{categories.map((value, i) => {
+					{/* {categories.map((value, i) => {
 						return (
 							<Categories
 								category={value.category}
@@ -130,7 +133,17 @@ const Home = () => {
 								curretCategory={curretCategory}
 							/>
 						);
-					})}
+
+					})} */}
+					{center && (
+						<FilterForm
+							categories={categories && categories}
+							setCurretCategory={setCurretCategory}
+							setCenter={setCenter}
+							setDistance={setDistance}
+						/>
+					)}
+
 					{/* <CustomCarousel
 						categories={categories}
 						setCurretCategory={setCurretCategory}
@@ -157,6 +170,11 @@ const Home = () => {
 							paddingRight: "1rem",
 						}}
 					/>
+					{/* <AntdSearch
+						setCenter={setCenter}
+						setAddress={setAddress}
+						address={address}
+					/> */}
 				</Box>
 
 				<Box

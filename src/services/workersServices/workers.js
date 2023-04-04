@@ -83,6 +83,24 @@ export const fetchAllWorkers = async (page, rows) => {
 	return json.workers;
 };
 
+export const fetchWorkersByCategory = async (category) => {
+	if (!category) {
+		return;
+	}
+	// const location = "current";
+	const response = await fetch(`${PORT}/workers/category`, {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify({
+			category: category,
+		}),
+	});
+	const json = await response.json();
+	if (!response.ok) {
+		return 0;
+	}
+	return json.workers;
+};
 //SEND DATA
 
 export const addNewCategory = async (category) => {

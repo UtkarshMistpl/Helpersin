@@ -6,6 +6,7 @@ import FormDisabledDemo from "../../components/forms/workerForm";
 import { getCountries } from "../../services/user/userServices";
 import { fetchDataCategories } from "../../services/workersServices/workers";
 import icon from "../../assets/images/worker-1.png";
+import FilterForm from "../../components/forms/filterForm/filterForm";
 
 const AddWorker = () => {
 	const [categories, setCategories] = useState([]);

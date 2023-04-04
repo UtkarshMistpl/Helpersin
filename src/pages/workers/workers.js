@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AlertModel from "../../components/modles/alertModel";
 import EditModal from "../../components/modles/editModel";
 import AntdTable from "../../components/tables/antdTable";
 import WorkersTable from "../../components/workers/workerTable";
-import { deleteWorker } from "../../services/workersServices/workers";
+import {
+	deleteWorker,
+	fetchDataCategories,
+} from "../../services/workersServices/workers";
 
 const WorkerList = () => {
 	const [alertModal, setAlertModal] = useState(false);
 	const [editModal, setEditModal] = useState(false);
 	const [currentRow, setCurrentRow] = useState(null);
+	const [categories, setCategories] = useState([]);
 
 	const deleteTheWorker = async () => {
 		console.log("delete func", currentRow);
@@ -19,6 +23,14 @@ const WorkerList = () => {
 		}
 	};
 
+	//fetch categories
+	useEffect(() => {
+		async function fetchApi() {
+			let fetchCategories = await fetchDataCategories();
+			setCategories(fetchCategories);
+		}
+		fetchApi();
+	}, []);
 	return (
 		<>
 			{/* <WorkersTable
@@ -33,6 +45,7 @@ const WorkerList = () => {
 				setAlertModal={setAlertModal}
 				setCurrentRow={setCurrentRow}
 				setEditModal={setEditModal}
+				categories={categories}
 			/>
 			<AlertModel
 				alertModal={alertModal}

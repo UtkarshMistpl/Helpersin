@@ -1,18 +1,32 @@
 // import "./App.css";
-import { Button, Table } from "antd";
+import { Button, Table, Input, Select } from "antd";
 import { useState, useEffect } from "react";
-import { fetchAllWorkers } from "../../services/workersServices/workers";
+import {
+	fetchAllWorkers,
+	fetchDataWorkers,
+	fetchWorkersByCategory,
+} from "../../services/workersServices/workers";
 import { Chip } from "@mui/material";
 import { COLOR_PRIME_BLUE } from "../../constant/constant";
-function AntdTable({ alertModal, setAlertModal, setCurrentRow, setEditModal }) {
+function AntdTable({
+	alertModal,
+	setAlertModal,
+	setCurrentRow,
+	setEditModal,
+	categories,
+}) {
 	const [dataSource, setDataSource] = useState([]);
 	const [totalPages, setTotalPages] = useState(1000);
 	const [rowsPerPage, setrowsPerPage] = useState(10);
 	const [loading, setLoading] = useState(false);
+	const [tableCategory, setTableCategory] = useState("");
 
 	// useEffect(() => {
 	// 	fetchRecords(1);
 	// }, []);
+	const handleSearch = (value) => {
+		setTableCategory(value);
+	};
 	const columns = [
 		{
 			title: "ID",
@@ -91,6 +105,7 @@ function AntdTable({ alertModal, setAlertModal, setCurrentRow, setEditModal }) {
 		// console.log("current location from home", center);
 		setLoading(true);
 		let fetchWorkers = await fetchAllWorkers(page, size);
+
 		setLoading(false);
 
 		// console.log(fetchWorkers);
@@ -103,15 +118,59 @@ function AntdTable({ alertModal, setAlertModal, setCurrentRow, setEditModal }) {
 		fetchApi(page, 10);
 	}, []);
 
+	//serach by category
+	const fetchDataByCategory = async () => {
+		setLoading(true);
+		let fetchWorkers = await fetchWorkersByCategory(tableCategory);
+		setLoading(false);
+
+		if (fetchWorkers) {
+			setrowsPerPage(fetchWorkers.length);
+			setDataSource(fetchWorkers);
+		}
+		console.log(fetchWorkers);
+	};
+
 	return (
 		<div
 			style={{
 				display: "flex",
+				flexDirection: "column",
 				justifyContent: "center",
-				alignItems: "center",
+				alignItems: "start",
 				padding: "2rem",
 			}}
 		>
+			<div style={{ display: "flex", alignItems: "center" }}>
+				{/* <Input
+					type="text"
+					placeholder="Search By Category"
+					style={{ marginBottom: "1rem" }}
+					onChange={handleSearch}
+				/> */}
+				<Select
+					placeholder="Select A Category"
+					onChange={handleSearch}
+					style={{ marginBottom: "1rem", minWidth: "180px" }}
+				>
+					{categories.map((value, i) => {
+						return (
+							<Select.Option value={value.category} key={value.id}>
+								{value.category}
+							</Select.Option>
+						);
+					})}
+				</Select>
+
+				<Button
+					type="primary"
+					size="small"
+					style={{ marginBottom: "1rem", marginLeft: "0.5rem" }}
+					onClick={fetchDataByCategory}
+				>
+					Search
+				</Button>
+			</div>
 			<Table
 				loading={loading}
 				columns={columns}

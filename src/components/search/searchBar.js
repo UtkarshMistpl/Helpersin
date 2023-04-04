@@ -4,6 +4,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import TextField from "@mui/material//TextField";
 import {
 	COLOR_BLACK,
+	COLOR_BORDER_BLUE,
 	COLOR_PRIME_BLUE,
 	COLOR_WHITE,
 } from "../../constant/constant";
@@ -13,7 +14,7 @@ import usePlacesAutocomplete, {
 	getGeocode,
 	getLatLng,
 } from "use-places-autocomplete";
-import { Box } from "@mui/material";
+import { Box, autocompleteClasses } from "@mui/material";
 
 const SearchBar = ({ setCenter }) => {
 	// const { ref, autocompleteRef } = usePlacesWidget({
@@ -21,6 +22,13 @@ const SearchBar = ({ setCenter }) => {
 	// 	onPlaceSelected: (place) => {},
 	// });
 	// console.log(ref);
+	const [hasFocus, setFocus] = useState(false);
+	const [autoCompleteStyle, setAutoCompleteStyle] = useState({
+		padding: "0.75rem",
+		width: "230px",
+		borderRadius: "0.4rem",
+		border: `1px solid ${COLOR_BORDER_BLUE}`,
+	});
 	const onPlaceSelected = async (place) => {
 		// formatted_address: "Indore, Madhya Pradesh, India";
 		console.log("selected  place", place.geometry.location.lat);
@@ -40,7 +48,13 @@ const SearchBar = ({ setCenter }) => {
 			<Autocomplete
 				apiKey={String(process.env.REACT_APP_GOOGLEMAPS_KEY)}
 				onPlaceSelected={onPlaceSelected}
-				style={{ padding: "0.75rem", width: "230px" }}
+				style={autoCompleteStyle}
+				onFocus={() => {
+					setAutoCompleteStyle({
+						...autoCompleteStyle,
+						border: `1px solid ${COLOR_PRIME_BLUE}`,
+					});
+				}}
 			/>
 			{/* <IconButton type="button" aria-label="search">
 				<SearchIcon style={{ fill: "blue" }} />
