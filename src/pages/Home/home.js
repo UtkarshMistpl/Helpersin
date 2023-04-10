@@ -16,6 +16,7 @@ import {
 	fetchDataWorkers,
 } from "../../services/workersServices/workers";
 import FilterForm from "../../components/forms/filterForm/filterForm";
+import { useCategoryContext } from "../../hooks/useCategoryContext";
 const Home = () => {
 	const { status, lat, lng, getLocation } = useCurrentLocation();
 	const [address, setAddress] = useState(null);
@@ -29,6 +30,7 @@ const Home = () => {
 		window.innerWidth,
 		window.innerHeight,
 	]);
+	const { contextcategories, isLoading } = useCategoryContext();
 
 	useEffect(() => {
 		const handleWindowResize = () => {
@@ -61,13 +63,13 @@ const Home = () => {
 		console.log("home cur category", curretCategory);
 	}, [center, curretCategory, distance]);
 
-	useEffect(() => {
-		async function fetchApi() {
-			let fetchCategories = await fetchDataCategories();
-			setCategories(fetchCategories);
-		}
-		fetchApi();
-	}, []);
+	// useEffect(() => {
+	// 	async function fetchApi() {
+	// 		let fetchCategories = await fetchDataCategories();
+	// 		setCategories(fetchCategories);
+	// 	}
+	// 	fetchApi();
+	// }, []);
 
 	useEffect(() => {
 		setCenter({
@@ -78,54 +80,55 @@ const Home = () => {
 	}, [status]);
 
 	return (
-		<>
-			<Box
-				sx={{
-					paddingTop: "3.5rem",
-					position: "relative",
-					width: "100%",
-				}}
-			>
-				<Box
-					sx={
-						windowSize[0] > 660
-							? {
-									position: "absolute",
-									top: "0",
-									display: "flex",
-									justifyContent: "right",
-									width: "100%",
-							  }
-							: {
-									position: "absolute",
-									top: "600px",
-									display: "flex",
-									justifyContent: "center",
-									width: "100%",
-							  }
-					}
-				>
-					{workers ? (
-						<MapComponent
-							center={center}
-							workers={workers}
-							windowSize={windowSize[0]}
-						/>
-					) : null}
-				</Box>
+		!isLoading && (
+			<>
 				<Box
 					sx={{
-						position: "absolute",
-						top: windowSize[0] > 660 ? "50px" : "10px",
-						left: "0%",
-						display: "flex",
-						flexWrap: "wrap",
-						flexDirection: windowSize[0] > 660 ? "column" : "row",
-						height: "100vh",
-						paddingLeft: "3rem",
+						paddingTop: "3.5rem",
+						position: "relative",
+						width: "100%",
 					}}
 				>
-					{/* {categories.map((value, i) => {
+					<Box
+						sx={
+							windowSize[0] > 660
+								? {
+										position: "absolute",
+										top: "0",
+										display: "flex",
+										justifyContent: "right",
+										width: "100%",
+								  }
+								: {
+										position: "absolute",
+										top: "600px",
+										display: "flex",
+										justifyContent: "center",
+										width: "100%",
+								  }
+						}
+					>
+						{workers ? (
+							<MapComponent
+								center={center}
+								workers={workers}
+								windowSize={windowSize[0]}
+							/>
+						) : null}
+					</Box>
+					<Box
+						sx={{
+							position: "absolute",
+							top: windowSize[0] > 660 ? "50px" : "10px",
+							left: "0%",
+							display: "flex",
+							flexWrap: "wrap",
+							flexDirection: windowSize[0] > 660 ? "column" : "row",
+							height: "100vh",
+							paddingLeft: "3rem",
+						}}
+					>
+						{/* {categories.map((value, i) => {
 						return (
 							<Categories
 								category={value.category}
@@ -135,62 +138,63 @@ const Home = () => {
 						);
 
 					})} */}
-					{center && (
-						<FilterForm
-							categories={categories && categories}
-							setCurretCategory={setCurretCategory}
-							setCenter={setCenter}
-							setDistance={setDistance}
-						/>
-					)}
+						{!isLoading && (
+							<FilterForm
+								categories={!isLoading && contextcategories}
+								setCurretCategory={setCurretCategory}
+								setCenter={setCenter}
+								setDistance={setDistance}
+							/>
+						)}
 
-					{/* <CustomCarousel
+						{/* <CustomCarousel
 						categories={categories}
 						setCurretCategory={setCurretCategory}
 						curretCategory={curretCategory}
 						windowSize={windowSize[0]}
 					/> */}
 
-					{/* <PlaceSearch /> */}
-				</Box>
-				<Box
-					sx={{
-						position: "absolute",
-						top: windowSize[0] > 660 ? "15px" : "620px",
-						right: windowSize[0] > 660 ? "600px" : null,
-						left: !(windowSize[0] > 660) ? "40px" : "450px",
-						zIndex: 1000,
-					}}
-				>
-					<SearchBar
-						setCenter={setCenter}
-						customStyle={{
-							padding: "0.8rem",
-							paddingLeft: "2rem",
-							paddingRight: "1rem",
+						{/* <PlaceSearch /> */}
+					</Box>
+					<Box
+						sx={{
+							position: "absolute",
+							top: windowSize[0] > 660 ? "15px" : "620px",
+							right: windowSize[0] > 660 ? "600px" : null,
+							left: !(windowSize[0] > 660) ? "40px" : "450px",
+							zIndex: 1000,
 						}}
-					/>
-					{/* <AntdSearch
+					>
+						<SearchBar
+							setCenter={setCenter}
+							customStyle={{
+								padding: "0.8rem",
+								paddingLeft: "2rem",
+								paddingRight: "1rem",
+							}}
+						/>
+						{/* <AntdSearch
 						setCenter={setCenter}
 						setAddress={setAddress}
 						address={address}
 					/> */}
-				</Box>
+					</Box>
 
-				<Box
-					sx={{
-						position: "absolute",
-						top: windowSize[0] > 660 ? "200px" : "680px",
-						right: windowSize[0] > 660 ? "100px" : "30px",
-						zIndex: 1000,
-						display: "flex",
-						justifyContent: "center",
-					}}
-				>
-					<VerticalSlider windowSize={windowSize} setDistance={setDistance} />
+					<Box
+						sx={{
+							position: "absolute",
+							top: windowSize[0] > 660 ? "200px" : "680px",
+							right: windowSize[0] > 660 ? "100px" : "30px",
+							zIndex: 1000,
+							display: "flex",
+							justifyContent: "center",
+						}}
+					>
+						<VerticalSlider windowSize={windowSize} setDistance={setDistance} />
+					</Box>
 				</Box>
-			</Box>
-		</>
+			</>
+		)
 	);
 };
 
